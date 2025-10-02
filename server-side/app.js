@@ -10,7 +10,8 @@ const app = express();
 // Allow requests from your frontend
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://sleekshort.vercel.app/"
+  "https://sleekshort.vercel.app/",
+  "https://sleekshort-k1c9hs203-priyanshubarais-projects.vercel.app/"
 ];
 
 app.use(cors({

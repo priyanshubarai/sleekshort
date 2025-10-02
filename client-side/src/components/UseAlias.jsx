@@ -1,6 +1,6 @@
 import React from 'react'
 import useUrlStore from '../store/store'
-import axios from "axios";
+import apiInstance from '../lib/axios';
 
 
 const UseAlias = () => {
@@ -10,21 +10,21 @@ const UseAlias = () => {
     const handleAlias = async (e) => {
         setAlias(e.target.value)
         try{
-            const res = await axios.post("/checkalias",{alias : alias})
+            const res = await apiInstance.post("/checkalias",{alias : alias})
             res.found ? setIsUnique(false) : setIsUnique(true);
             console.log("is Unique : ",isUnique);      
 
             if(isUnique){ //unique
                 try {
                 setError("");
-                const res = await axios.post("/shorten/withalias", { originalUrl: inputUrl });
+                const res = await apiInstance.post("/shorten/withalias", { originalUrl: inputUrl });
                 console.log("response : ", res);
                 setShortUrl(res.data.shortUrl);
                 } catch (err) {
                 setError("Failed to shorten URL. Please try again.");
                 } finally {
                 }
-                const res2 = await axios.post("/shorten/withalias", { originalUrl: inputUrl,alias });
+                const res2 = await apiInstance.post("/shorten/withalias", { originalUrl: inputUrl,alias });
             }
 
         }catch(err){console.log(err)}

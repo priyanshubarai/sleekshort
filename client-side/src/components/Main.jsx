@@ -20,7 +20,7 @@ const Main = () => {
         console.log("response : ", res);
         setShortUrl(res.data.shortUrl);
       } catch (err) {
-        setError("Failed to shorten URL. Please try again."+err);
+        setError("Failed to shorten URL. Please try again: "+err);
       } finally {
         setLoading(false);
       }

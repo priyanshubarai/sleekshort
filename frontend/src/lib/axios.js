@@ -8,7 +8,6 @@ const baseURL = import.meta.env.MODE === "development"
 
 const apiInstance = axios.create({
   baseURL,
-  timeout: 1000,
   headers: {'X-Custom-Header': 'foobar'}
 });
 

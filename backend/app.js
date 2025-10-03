@@ -11,14 +11,27 @@ const app = express();
 const allowedOrigins = [
   "http://localhost:5173",
   "https://sleekshort.vercel.app",
-  "https://sleekshort-kpltja0ih-priyanshubarais-projects.vercel.app"
 ];
 
-app.use(cors({
-  origin: allowedOrigins,
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true); // allow non-browser requests like Postman
+
+    // Allow listed origins or any Vercel preview deployment
+    if (
+      allowedOrigins.includes(origin) ||
+      /\.vercel\.app$/.test(origin) // ✅ matches any vercel.app subdomain
+    ) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true
-}));
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 
 app.use(express.json())     //to get incoming json from react in req.body
 app.use(controller.getReqInfo)
